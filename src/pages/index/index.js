@@ -1,32 +1,18 @@
 import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
+import HeaderBar from "../../components/HeaderBar";
 import Layout from "../../components/Layout";
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import styles from "./styles";
+import FooterBar from "../../components/FooterBar";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 class Index extends Component {
 
@@ -35,14 +21,7 @@ class Index extends Component {
     const { classes } = this.props;
     return (
       <Layout>
-        <AppBar position="relative">
-          <Toolbar>
-            <CameraIcon className={classes.icon} />
-            <Typography variant="h6" color="inherit" noWrap>
-              Album layoutCC
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <HeaderBar/>
         <main>
           {/* Hero unit */}
           <div className={classes.heroContent}>
@@ -86,7 +65,7 @@ class Index extends Component {
             {/* End hero unit */}
             <Grid container spacing={4}>
               {cards.map(card => (
-                <Grid item key={card} xs={12} sm={6} md={4}>
+                <Grid item key={card} xs={6} sm={4} md={3}>
                   <Card className={classes.card}>
                     <CardMedia
                       className={classes.cardMedia}
@@ -117,24 +96,11 @@ class Index extends Component {
           </Container>
         </main>
         {/* Footer */}
-        <footer className={classes.footer}>
-          <Typography variant="h6" align="center" gutterBottom>
-            Footer
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="textSecondary"
-            component="p"
-          >
-            Something here to give the footer a purpose!
-          </Typography>
-          <Copyright />
-        </footer>
+        <FooterBar/>
         {/* End footer */}
       </Layout>
     );
   }
 }
-  
+
 export default withStyles(styles)(Index);
