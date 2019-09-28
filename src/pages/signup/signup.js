@@ -133,7 +133,7 @@ class SignUp extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onSubmit={this.handleSubmit}
+                onClick={this.handleSubmit}
               >
                 Sign Up
               </Button>
