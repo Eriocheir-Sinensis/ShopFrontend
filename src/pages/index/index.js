@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -12,9 +13,14 @@ import Layout from "../../components/Layout";
 import { withStyles } from '@material-ui/core/styles';
 import styles from "./styles";
 import FooterBar from "../../components/FooterBar";
+import { getCrabList } from "../../store/products/action";
 
 
 class Index extends Component {
+
+  componentDidMount() {
+    this.props.getCrabList();
+  }
 
   render() {
     const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -64,21 +70,20 @@ class Index extends Component {
           <Container className={classes.cardGrid} maxWidth="md">
             {/* End hero unit */}
             <Grid container spacing={4}>
-              {cards.map(card => (
-                <Grid item key={card} xs={6} sm={4} md={3}>
+              {this.props.crabs.map(crab => (
+                <Grid item key={crab.id} xs={6} sm={4} md={3}>
                   <Card className={classes.card}>
                     <CardMedia
                       className={classes.cardMedia}
-                      image="https://source.unsplash.com/random"
-                      title="Image title"
+                      image={crab.images[0]}
+                      title={crab.name}
                     />
                     <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Heading
+                      <Typography gutterBottom variant="subtitle2">
+                        { crab.name }
                       </Typography>
-                      <Typography>
-                        This is a media card. You can use this section to
-                        describe the content.
+                      <Typography variant="caption">
+                        { crab.size }
                       </Typography>
                     </CardContent>
                     <CardActions>
@@ -95,12 +100,19 @@ class Index extends Component {
             </Grid>
           </Container>
         </main>
-        {/* Footer */}
         <FooterBar/>
-        {/* End footer */}
       </Layout>
     );
   }
 }
 
-export default withStyles(styles)(Index);
+const mapStateToProps = (state) => {
+  const { products } = state;
+  return { crabs: products.crabs } 
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getCrabList: () => dispatch(getCrabList()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index));

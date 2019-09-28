@@ -2,6 +2,8 @@ import ACTIONS from "./action";
 import _ from "lodash";
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
+import ProductReducer from './products/reducer';
+import CartReducer from './cart/reducer';
 
 const defaultState = {
   items: []
@@ -34,5 +36,7 @@ const todoReducer = (state = defaultState, action) => {
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
     todoReducer: todoReducer,
+    cart: CartReducer,
+    products: ProductReducer,
   })
 export default createRootReducer

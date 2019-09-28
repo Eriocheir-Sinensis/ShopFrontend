@@ -36,8 +36,8 @@ const useStyles = makeStyles(theme => ({
 function HeaderBar(props) {
   const classes = useStyles();
   return (
-      <ElevationScroll {...props} className={classes.grow}>
-        <AppBar position="static">
+      <ElevationScroll {...props}>
+        <AppBar>
           <Toolbar>
             <Typography variant="h6" noWrap>Scroll to Elevate App Bar</Typography>
             <div className={classes.grow} />

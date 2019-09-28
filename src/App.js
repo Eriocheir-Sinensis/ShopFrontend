@@ -6,9 +6,8 @@ import SignUp from "./pages/signup/signup";
 import { Provider } from "react-redux";
 import { Route, Switch } from "react-router"; // react-router v4/v5
 import { ConnectedRouter } from "connected-react-router";
-import configureStore, { history } from "./store/index";
+import store, { history } from "./store";
 
-const store = configureStore(/* provide initial state if any */);
 
 class App extends Component {
   render() {
