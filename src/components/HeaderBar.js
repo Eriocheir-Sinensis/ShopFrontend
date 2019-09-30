@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -25,6 +26,9 @@ function ElevationScroll(props) {
   });
 }
 const useStyles = makeStyles(theme => ({
+  appbar: {
+    alignItems: 'center'
+  },
   grow: {
     flexGrow: 1,
   },
@@ -37,25 +41,14 @@ function HeaderBar(props) {
   const classes = useStyles();
   return (
       <ElevationScroll {...props}>
-        <AppBar>
+        <AppBar className={classes.appbar}>
           <Toolbar>
-            <Typography variant="h6" noWrap>Scroll to Elevate App Bar</Typography>
-            <div className={classes.grow} />
-            <div>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </div>
+            <Typography variant="h6" noWrap>一品蟹煌阳澄湖大闸蟹</Typography>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
   );
 }
 
-const mapStateToProps = (state) => ({
 
-});
-
-export default connect(mapStateToProps)(HeaderBar);
+export default HeaderBar;

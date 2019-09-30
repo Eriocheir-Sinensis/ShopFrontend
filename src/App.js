@@ -3,6 +3,7 @@ import ToDO from "./pages/todo";
 import Index from "./pages/index/index";
 import Login from "./pages/login/login";
 import SignUp from "./pages/signup/signup";
+import Me from "./pages/me/me";
 import { Provider } from "react-redux";
 import { Route, Switch } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path="/todo" component={ToDO} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/me" component={Me} />
           </Switch>
         </ConnectedRouter>
       </Provider>

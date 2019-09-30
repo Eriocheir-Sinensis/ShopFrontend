@@ -41,7 +41,7 @@ export const loginAccount = (data) => {
         localStorage.setItem('token', resp.data.token);
         dispatch(setToken(resp.data.token));
         dispatch(setUser(resp.data.user));
-        dispatch(push('/'));
+        dispatch(goBack());
       }).catch((err) => {
         if (err.response.status === 404) {
           dispatch(showError('用户不存在'));

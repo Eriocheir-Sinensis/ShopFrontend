@@ -54,7 +54,7 @@ class Login extends React.Component {
   render() {
     const {classes} = this.props;
     return (
-      <Layout>
+      <React.Fragment>
         <Snackbar/>
         <Container component="main" maxWidth="xs">
           <div className={classes.paper}>
@@ -120,7 +120,7 @@ class Login extends React.Component {
             </form>
           </div>
         </Container>
-      </Layout>
+      </React.Fragment>
     );
   }
 }

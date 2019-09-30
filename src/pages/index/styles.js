@@ -23,7 +23,31 @@ const styles = theme => ({
     paddingTop: "56.25%" // 16:9
   },
   cardContent: {
+    flexGrow: 1,
+    paddingBottom: '10px'
+  },
+  cardContentTitle: {
+    fontSize: "16px"
+  },
+  cardContentSubtitle: {
+    fontSize: "10px"
+  },
+  cardContentPrice: {
+    fontSize: "14px",
+    color: theme.palette.primary.main,
+    '@media (max-width: 320px)': {
+      fontSize: "9px"
+    }
+  },
+  cardContentOriginalPrice: {
+    color: '#DDD',
+    textDecoration: 'line-through',
+  },
+  grow: {
     flexGrow: 1
+  },
+  cart: {
+    color: theme.palette.primary.main
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
