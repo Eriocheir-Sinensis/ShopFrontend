@@ -4,6 +4,8 @@ import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 import ProductReducer from './products/reducer';
 import CartReducer from './cart/reducer';
+import AuthReducer from './auth/reducer';
+import ErrorBarReducer from "./errorbar/reducer";
 
 const defaultState = {
   items: []
@@ -38,5 +40,7 @@ const createRootReducer = (history) => combineReducers({
     todoReducer: todoReducer,
     cart: CartReducer,
     products: ProductReducer,
-  })
+    error: ErrorBarReducer,
+    auth: AuthReducer,
+  });
 export default createRootReducer

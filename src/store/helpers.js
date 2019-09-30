@@ -1,7 +1,7 @@
-import { store } from "../App";
+import store from "./index";
 
 export const getToken = () => {
-  let token = store.getState().user.token;
+  let token = store.getState().auth.token;
   if (!token || token.length === 0) {
     token = localStorage.getItem("token");
   }
