@@ -1,29 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Container from "@material-ui/core/Container";
-import HeaderBar from "../../components/HeaderBar";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-import FooterBar from "../../components/FooterBar";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import { getCrabList } from "../../store/products/action";
+import { addToCart } from "../../store/cart/action";
 
 class Index extends Component {
   constructor(props) {
     super(props);
+    this.goToDetail = this.goToDetail.bind(this);
   }
 
   componentDidMount() {
     this.props.getCrabList();
+  }
+
+  goToDetail(crab) {
+    this.props.history.push(`/goods?id=${crab.id}`);
   }
 
   render() {
@@ -31,52 +38,15 @@ class Index extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <HeaderBar />
+        <Header />
         <main>
-          {/* Hero unit */}
-          <div className={classes.heroContent}>
-            <Container maxWidth="sm">
-              <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                color="textPrimary"
-                gutterBottom
-              >
-                Album layout
-              </Typography>
-              <Typography
-                variant="h5"
-                align="center"
-                color="textSecondary"
-                paragraph
-              >
-                Something short and leading about the collection below—its
-                contents, the creator, etc. Make it short and sweet, but not too
-                short so folks don&apos;t simply skip over it entirely.
-              </Typography>
-              <div className={classes.heroButtons}>
-                <Grid container spacing={2} justify="center">
-                  <Grid item>
-                    <Button variant="contained" color="primary">
-                      Main call to action
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button variant="outlined" color="primary">
-                      Secondary action
-                    </Button>
-                  </Grid>
-                </Grid>
-              </div>
-            </Container>
-          </div>
           <Container className={classes.cardGrid} maxWidth="md">
             {/* End hero unit */}
             <Grid container spacing={4}>
               {this.props.crabs.map(crab => (
                 <Grid item key={crab.id} xs={6} sm={4} md={3}>
-                  <Card className={classes.card} onClick={()=>console.log(crab)}>
+                  <Card className={classes.card}>
+                    <CardActionArea onClick={event => this.goToDetail(crab)}>
                     <CardMedia
                       className={classes.cardMedia}
                       image={crab.images[0]}
@@ -100,7 +70,8 @@ class Index extends Component {
                         {crab.size}
                       </Typography>
                     </CardContent>
-                    <CardActions>
+                    </CardActionArea>
+                    <CardActions className={classes.cardActions}>
                       <Typography className={classes.cardContentPrice}>
                         {crab.original_price ? (
                           <React.Fragment>
@@ -116,7 +87,7 @@ class Index extends Component {
                         {crab.net}
                       </Typography>
                       <div className={classes.grow} />
-                      <IconButton aria-label="加入购物车" color="inherit" onClick={()=>{console.log("add")}}>
+                      <IconButton aria-label="加入购物车" color="inherit" onClick={()=>{this.props.addToCart(crab.id, 1)}}>
                         <AddShoppingCartIcon className={classes.cart} />
                       </IconButton>
                     </CardActions>
@@ -126,7 +97,7 @@ class Index extends Component {
             </Grid>
           </Container>
         </main>
-        <FooterBar />
+        <Footer />
       </React.Fragment>
     );
   }
@@ -138,7 +109,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getCrabList: () => dispatch(getCrabList())
+  getCrabList: () => dispatch(getCrabList()),
+  addToCart: (item_id, amount) => dispatch(addToCart(item_id, amount)),
 });
 
 export default connect(

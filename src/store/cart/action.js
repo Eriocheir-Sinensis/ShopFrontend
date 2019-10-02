@@ -14,7 +14,7 @@ const setCart = (data) => {
 const createOrLogin = (err) => {
   return dispatch => {
     if (err.response.status === 404) {
-      return axios.post(HOST + '/cart/', {}, { headers: getAuthHeaders(getToken())})
+      return axios.post(HOST + '/cart/', {}, { headers: getAuthHeaders()})
         .then((resp) => {
           dispatch(setCart(resp.data));
         })
@@ -26,11 +26,16 @@ const createOrLogin = (err) => {
 
 export const getCartDetail = () => {
   return dispatch => {
-    return axios.get(HOST + '/cart/', { headers: getAuthHeaders(getToken())})
+    return axios.get(HOST + '/cart/', { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {
-        dispatch(createOrLogin(err));
+        if (err.response.status === 404) {
+          return axios.post(HOST + '/cart/', {}, { headers: getAuthHeaders()})
+            .then((resp) => {
+              dispatch(setCart(resp.data));
+            })
+        }
       })
   }
 };
@@ -41,7 +46,7 @@ export const addToCart = (item_id, amount) => {
       crab: item_id,
       amount
     };
-    return axios.post(`${HOST}/cart/${store.getState().cart.id}/`, data, { headers: getAuthHeaders(getToken())})
+    return axios.post(`${HOST}/cart/${store.getState().cart.id}/`, data, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {
@@ -52,7 +57,7 @@ export const addToCart = (item_id, amount) => {
 
 export const updateCart = (item_id, amount) => {
   return dispatch => {
-    return axios.put(`${HOST}/cart/${store.getState().cart.id}/${item_id}/`, { amount }, { headers: getAuthHeaders(getToken())})
+    return axios.put(`${HOST}/cart/${store.getState().cart.id}/${item_id}/`, { amount }, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {
@@ -63,7 +68,7 @@ export const updateCart = (item_id, amount) => {
 
 export const removeFromCart = (item_id) => {
   return dispatch => {
-    return axios.delete(`${HOST}/cart/${store.getState().cart.id}/${item_id}`, { headers: getAuthHeaders(getToken())})
+    return axios.delete(`${HOST}/cart/${store.getState().cart.id}/${item_id}`, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {

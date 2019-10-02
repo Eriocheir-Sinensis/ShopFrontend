@@ -20,17 +20,21 @@ const styles = theme => ({
     flexDirection: "column"
   },
   cardMedia: {
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
+    height: "8rem"
   },
   cardContent: {
     flexGrow: 1,
-    paddingBottom: '10px'
+    padding: '0.5rem 0.5rem 0.1rem 0.5rem'
   },
   cardContentTitle: {
-    fontSize: "16px"
+    fontSize: "14px"
   },
   cardContentSubtitle: {
-    fontSize: "10px"
+    fontSize: "9px"
+  },
+  cardActions: {
+    padding: "0 0.5rem 0 0.5rem"
   },
   cardContentPrice: {
     fontSize: "14px",
@@ -41,6 +45,7 @@ const styles = theme => ({
   },
   cardContentOriginalPrice: {
     color: '#DDD',
+    fontSize: "11px",
     textDecoration: 'line-through',
   },
   grow: {

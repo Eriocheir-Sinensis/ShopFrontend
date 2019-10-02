@@ -8,8 +8,8 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { makeStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Badge from "@material-ui/core/Badge";
+import ArrowBackIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -28,7 +28,8 @@ function ElevationScroll(props) {
 }
 const useStyles = makeStyles(theme => ({
   appbar: {
-    alignItems: 'center'
+    alignItems: 'center',
+    height: theme.spacing(8)
   },
   grow: {
     flexGrow: 1,
@@ -44,8 +45,15 @@ function HeaderBar(props) {
       <ElevationScroll {...props}>
         <AppBar className={classes.appbar}>
           <Toolbar>
-
-            <Typography variant="h6" noWrap>一品蟹煌阳澄湖大闸蟹</Typography>
+            <IconButton
+              edge="start"
+              className={classes.backButton}
+              color="inherit"
+              aria-label="go back"
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>商品详情</Typography>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

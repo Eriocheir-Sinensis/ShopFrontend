@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { push } from "connected-react-router";
 import { withStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
@@ -9,7 +9,6 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
-import BadgedShoppingCartIcon from "./BadgedShoppingCartIcon";
 
 const styles = theme => ({
   root: {
@@ -49,7 +48,11 @@ class FooterBar extends React.Component {
           component={Link}
           to="/cart"
           label="购物车"
-          icon={<BadgedShoppingCartIcon />}
+          icon={
+            <Badge badgeContent={this.props.cart.count} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          }
         />
         <BottomNavigationAction
           component={Link}
