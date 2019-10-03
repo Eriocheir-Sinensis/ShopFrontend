@@ -1,20 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { push } from "connected-react-router";
 import { withStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import Badge from "@material-ui/core/Badge";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  ButtonGroup,
+  Button
+} from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ContactSupportIcon from "@material-ui/icons/ContactSupport";
+import ArrowBackIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 const styles = theme => ({
-  root: {
-    width: "100%",
-    position: "fixed",
-    bottom: 0
+  appbar: {
+    top: "auto",
+    bottom: 0,
+    backgroundColor: "white"
+  },
+  addToCartButton: {
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main
+  },
+  buyButton: {
+    color: "white",
+    backgroundColor: theme.palette.primary.main
   }
 });
 
@@ -32,35 +42,30 @@ class FooterBar extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <BottomNavigation
-        value={this.state.value}
-        onChange={this.handleChange}
-        showLabels
-        className={classes.root}
-      >
-        <BottomNavigationAction
-          component={Link}
-          to="/contact"
-          label="联系我们"
-          icon={<ContactSupportIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/cart"
-          label="购物车"
-          icon={
-            <Badge badgeContent={this.props.cart.count} color="secondary">
-              <ShoppingCartIcon />
-            </Badge>
-          }
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/me"
-          label="我的"
-          icon={<PermIdentityIcon />}
-        />
-      </BottomNavigation>
+      <AppBar position="fixed" className={classes.appbar}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.backButton}
+            color="inherit"
+            aria-label="go back"
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            商品详情
+          </Typography>
+          <ButtonGroup aria-label="outlined primary button group">
+            <Button className={classes.addToCartButton}>加入购物车</Button>
+            <Button
+              className={classes.buyButton}
+              startIcon={<ShoppingCartIcon />}
+            >
+              立即购买
+            </Button>
+          </ButtonGroup>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

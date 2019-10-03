@@ -1,13 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { push } from "connected-react-router";
 import { withStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
-import Badge from "@material-ui/core/Badge";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import BadgedShoppingCartIcon from "./BadgedShoppingCartIcon";
 

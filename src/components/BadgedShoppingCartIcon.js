@@ -18,7 +18,7 @@ class BadgedShoppingCartIcon extends React.Component {
     const { classes } = this.props;
     return (
         <Badge badgeContent={this.props.cart.count} color="secondary">
-          <ShoppingCartIcon />
+          <ShoppingCartIcon onClick={() => console.log(this.props)}/>
         </Badge>
     );
   }
