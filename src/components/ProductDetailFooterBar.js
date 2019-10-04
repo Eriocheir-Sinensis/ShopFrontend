@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ArrowBackIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import {addCurrentToCart} from "../store/products/action";
 
 const styles = theme => ({
   appbar: {
@@ -31,8 +32,8 @@ const styles = theme => ({
 class FooterBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: -1 };
     this.handleChange = this.handleChange.bind(this);
+    console.log(this.props)
   }
 
   handleChange = (event, value) => {
@@ -56,10 +57,15 @@ class FooterBar extends React.Component {
             商品详情
           </Typography>
           <ButtonGroup aria-label="outlined primary button group">
-            <Button className={classes.addToCartButton}>加入购物车</Button>
+            <Button
+              className={classes.addToCartButton}
+              onClick={() => this.props.addCurrentToCart()}
+            >
+              加入购物车
+            </Button>
             <Button
               className={classes.buyButton}
-              startIcon={<ShoppingCartIcon />}
+              // startIcon={<ShoppingCartIcon />}
             >
               立即购买
             </Button>
@@ -75,7 +81,9 @@ const mapStateToProps = state => {
   return { cart: cart };
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  addCurrentToCart: () => dispatch(addCurrentToCart()),
+});
 
 export default connect(
   mapStateToProps,

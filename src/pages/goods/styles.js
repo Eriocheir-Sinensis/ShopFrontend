@@ -6,8 +6,34 @@ const styles = theme => ({
     paddingLeft: 0,
     paddingRight: 0,
   },
+  buttonGroup: {
+    width: theme.spacing(12),
+    height: theme.spacing(4),
+    fontSize: 'small',
+  },
+  numInput: {
+    textAlign: 'center'
+  },
   card: {
     borderRadius: 0,
+  },
+  cardContent: {
+    padding: "0.5rem 1rem 0.5rem 1rem"
+  },
+  cardTitle: {
+
+  },
+  cardCaption: {
+    color: "#6A6A6A"
+  },
+  cardContentPrice: {
+    fontSize: "20px",
+    color: theme.palette.primary.main,
+  },
+  cardContentOriginalPrice: {
+    color: '#DDD',
+    fontSize: "16px",
+    textDecoration: 'line-through',
   },
   cardMedia: {
     width: '100%',
