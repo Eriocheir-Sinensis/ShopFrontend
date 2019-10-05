@@ -10,14 +10,24 @@ import {
   Button
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ArrowBackIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import {addCurrentToCart} from "../store/products/action";
+import HomeIcon from "@material-ui/icons/Home";
+import WeChatIcon from "./WeChatIcon";
+import { addCurrentToCart } from "../store/products/action";
 
 const styles = theme => ({
   appbar: {
     top: "auto",
     bottom: 0,
     backgroundColor: "white"
+  },
+  homeButton: {
+    color: "#303c42"
+  },
+  weChatButton: {
+    color: "#303c42"
+  },
+  grow: {
+    flexGrow: 1
   },
   addToCartButton: {
     color: theme.palette.primary.main,
@@ -33,7 +43,7 @@ class FooterBar extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    console.log(this.props)
+    console.log(this.props);
   }
 
   handleChange = (event, value) => {
@@ -47,15 +57,20 @@ class FooterBar extends React.Component {
         <Toolbar>
           <IconButton
             edge="start"
-            className={classes.backButton}
-            color="inherit"
-            aria-label="go back"
+            className={classes.homeButton}
+            aria-label="主页"
           >
-            <ArrowBackIcon />
+            <HomeIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            商品详情
-          </Typography>
+          <IconButton
+            edge="start"
+            className={classes.weChatButton}
+            color="inherit"
+            aria-label="联系"
+          >
+            <WeChatIcon />
+          </IconButton>
+          <div className={classes.grow} />
           <ButtonGroup aria-label="outlined primary button group">
             <Button
               className={classes.addToCartButton}
@@ -82,7 +97,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addCurrentToCart: () => dispatch(addCurrentToCart()),
+  addCurrentToCart: () => dispatch(addCurrentToCart())
 });
 
 export default connect(

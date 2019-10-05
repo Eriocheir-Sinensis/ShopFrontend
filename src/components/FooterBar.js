@@ -7,6 +7,7 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import BadgedShoppingCartIcon from "./BadgedShoppingCartIcon";
+import WeChatIcon from "./WeChatIcon";
 
 const styles = theme => ({
   root: {
@@ -40,7 +41,7 @@ class FooterBar extends React.Component {
           component={Link}
           to="/contact"
           label="联系我们"
-          icon={<ContactSupportIcon />}
+          icon={<WeChatIcon />}
         />
         <BottomNavigationAction
           component={Link}

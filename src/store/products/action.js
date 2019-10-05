@@ -46,10 +46,10 @@ export const getCrabDetail = crab_id => {
       })
       .catch(err => {
         console.log(err);
-        if (err.response.status === 404) {
-          dispatch(setCurrentGoods({}));
-        }
-        console.log(err);
+        // if (err.response.status === 404) {
+        //   dispatch(setCurrentGoods({}));
+        // }
+        // console.log(err);
       });
   };
 };

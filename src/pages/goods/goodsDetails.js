@@ -166,14 +166,14 @@ class Index extends Component {
             </Typography>
           </CardContent>
         </Card>
-        {this.props.product.description ? (
+        {this.props.product.description.length > 0 ? (
           <Card className={clsx(classes.card, classes.description)}>
             <CardContent className={classes.cardContent}>
               <Typography>{this.props.product.description}</Typography>
             </CardContent>
           </Card>
         ) : (
-          {}
+          <div />
         )}
         <Card className={clsx(classes.card, classes.introduction)}>
           <CardMedia
