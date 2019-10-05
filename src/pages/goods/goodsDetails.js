@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import clsx from "clsx";
 import {
   Box,
   Button,
@@ -21,6 +21,8 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import ShoppingCartIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { withStyles } from "@material-ui/core/styles";
+import desc1 from "./desc1.png";
+import desc2 from "./desc2.png";
 import styles from "./styles";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -126,65 +128,64 @@ class Index extends Component {
             </Typography>
           </CardContent>
         </Card>
-        <Card className={classes.shipping}>
+        <Card className={clsx(classes.card, classes.shipping)}>
           <CardContent className={classes.cardContent}>
             <Typography
               color="primary"
               variant="body1"
               className={classes.shippingWord}
             >
-              <FiberManualRecordIcon fontSize="small" color="secondary" />
-              昆山阳澄湖发货
-              <FiberManualRecordIcon fontSize="small" color="secondary" />
-              正宗阳澄湖大闸蟹
-            </Typography>
-          </CardContent>
-          <CardContent className={classes.cardContent}>
-            <Typography
-              color="primary"
-              variant="body1"
-              className={classes.shippingWord}
-            >
-              <FiberManualRecordIcon fontSize="small" color="secondary" />
+              <FiberManualRecordIcon
+                className={classes.shippingWordIcon}
+                color="secondary"
+              />
               死蟹包赔
-              <FiberManualRecordIcon fontSize="small" color="secondary" />
+              <FiberManualRecordIcon
+                className={classes.shippingWordIcon}
+                color="secondary"
+              />
               无黄包赔
             </Typography>
           </CardContent>
-        </Card>
-        <Card className={classes.description}>
           <CardContent className={classes.cardContent}>
-            <Typography color="secondary">传承美味</Typography>
-          </CardContent>
-          <CardContent className={classes.cardContent}>
-            <Typography color="secondary">
-              阳澄湖大闸蟹体大膘肥，青壳白肚，金爪黄毛，肉质膏腻。农历9月的雌蟹、10月的雄蟹，性腺发育最佳。煮熟凝结，雌者成金黄色，雄者如白玉状，滋味鲜美。
+            <Typography
+              color="primary"
+              variant="body1"
+              className={classes.shippingWord}
+            >
+              <FiberManualRecordIcon
+                className={classes.shippingWordIcon}
+                color="secondary"
+              />
+              保证正宗
+              <FiberManualRecordIcon
+                className={classes.shippingWordIcon}
+                color="secondary"
+              />
+              昆山阳澄湖发货
             </Typography>
-            <Grid container spacing={3}>
-              <Grid item xs={6}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={6}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={6}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-              <Grid item xs={6}>
-                <Paper className={classes.paper}>xs=3</Paper>
-              </Grid>
-            </Grid>
           </CardContent>
         </Card>
-        <Card className={classes.description}>
-          <CardContent className={classes.cardContent}>
-            <Typography>QWER</Typography>
-          </CardContent>
+        {this.props.product.description ? (
+          <Card className={clsx(classes.card, classes.description)}>
+            <CardContent className={classes.cardContent}>
+              <Typography>{this.props.product.description}</Typography>
+            </CardContent>
+          </Card>
+        ) : (
+          {}
+        )}
+        <Card className={clsx(classes.card, classes.introduction)}>
+          <CardMedia
+            className={clsx(classes.introductionMedia)}
+            image={desc1}
+            />
         </Card>
-        <Card className={classes.description}>
-          <CardContent className={classes.cardContent}>
-            <Typography>QWER</Typography>
-          </CardContent>
+        <Card className={clsx(classes.card, classes.introduction)}>
+          <CardMedia
+            className={clsx(classes.introductionMedia)}
+            image={desc2}
+            />
         </Card>
       </React.Fragment>
     );
