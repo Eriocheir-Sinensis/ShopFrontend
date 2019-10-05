@@ -15,10 +15,15 @@ const styles = theme => ({
     textAlign: 'center'
   },
   card: {
-    borderRadius: 0,
+    borderRadius: "0.5rem",
   },
   cardContent: {
     padding: "0.5rem 1rem 0.5rem 1rem"
+  },
+  shipping: {
+    borderRadius: "0.5rem",
+  },
+  shippingWord: {
   },
   cardTitle: {
 
@@ -45,6 +50,10 @@ const styles = theme => ({
   grow: {
     flexGrow: 1
   },
+  description: {
+    borderRadius: "0.5rem",
+    backgroundColor: theme.palette.primary.main
+  }
 });
 
 export default styles;

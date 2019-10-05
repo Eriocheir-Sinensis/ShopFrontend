@@ -21,7 +21,7 @@ const setAmount = amount => {
   return {
     type: "SET_CURRENT_AMOUNT",
     amount
-  }
+  };
 };
 
 export const getCrabList = () => {
@@ -37,7 +37,7 @@ export const getCrabList = () => {
   };
 };
 
-export const getCrabDetail = (crab_id) => {
+export const getCrabDetail = crab_id => {
   return dispatch => {
     return axios
       .get(`${HOST}/goods/crab/${crab_id}/`)
@@ -50,15 +50,19 @@ export const getCrabDetail = (crab_id) => {
           dispatch(setCurrentGoods({}));
         }
         console.log(err);
-      })
-  }
+      });
+  };
 };
 
-export const setCurrentAmount = (amount) => {
+export const setCurrentAmount = amount => {
   return dispatch => {
-    if (amount > 0) dispatch(setAmount(amount));
-    else dispatch(setAmount(1));
-  }
+    if (amount === "") dispatch(setAmount(""));
+    else {
+      const num = parseInt(amount, 10);
+      if (num > 0) dispatch(setAmount(num));
+      else dispatch(setAmount(1));
+    }
+  };
 };
 
 export const addCurrentToCart = () => {
@@ -68,5 +72,5 @@ export const addCurrentToCart = () => {
       dispatch(addToCart(id, amount));
       dispatch(setAmount(1));
     }
-  }
+  };
 };

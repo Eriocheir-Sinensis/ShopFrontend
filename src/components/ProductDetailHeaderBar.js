@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { goBack } from 'connected-react-router'
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -18,8 +19,8 @@ const styles = theme => ({
     position: 'absolute',
     zIndex: 1,
     top: 0,
-    left: 0,
-    right: 0,
+    left: theme.spacing(6),
+    right: theme.spacing(6),
     textAlign: 'center',
     marginTop: theme.spacing(1.5),
   },
@@ -40,6 +41,7 @@ class ProductDetailHeader extends React.Component {
             className={classes.backButton}
             color="inherit"
             aria-label="go back"
+            onClick={() => this.props.goBack()}
           >
             <ArrowBackIcon />
           </IconButton>
@@ -54,4 +56,8 @@ class ProductDetailHeader extends React.Component {
   }
 }
 
-export default withStyles(styles)(ProductDetailHeader);
+const mapDispatchToProps = dispatch => ({
+  goBack: () => dispatch(goBack()),
+})
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(ProductDetailHeader));
