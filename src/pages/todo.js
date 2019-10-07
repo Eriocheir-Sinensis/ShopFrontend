@@ -67,6 +67,9 @@ class ToDO extends Component {
       [event.target.name]: event.target.value
     });
   };
+  componentDidMount() {
+    console.log("TODO mount!");
+  }
 
   render() {
     const { classes } = this.props;
