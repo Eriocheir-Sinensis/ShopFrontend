@@ -268,7 +268,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getCartDetail: () => dispatch(getCartDetail(true)),
+  getCartDetail: () => dispatch(getCartDetail(true, true)),
   updateCart: (item_id, amount) => dispatch(updateCart(item_id, amount, true)),
   removeFromCart: (item_id) => dispatch(removeFromCart(item_id, true)),
 });

@@ -112,7 +112,6 @@ class Index extends React.Component {
           <Button
             onClick={this.handleOrderConfirm}
             color="primary"
-            autoFocus
           >
             确认
           </Button>

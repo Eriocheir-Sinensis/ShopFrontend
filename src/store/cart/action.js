@@ -24,20 +24,24 @@ const createOrLogin = (err) => {
   }
 };
 
-export const getCartDetail = (detailed=false) => {
+export const getCartDetail = (detailed=false, redirectLogin=false) => {
   return dispatch => {
     return axios.get(`${HOST}/cart/${detailed ? '?detail=true' : ''}`, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {
+        console.log(err, err.response);
         if (err.hasOwnProperty('response')) {
           if (err.response.status === 403) {
-            dispatch(push('/login'));
+            dispatch(setCart({id: null, count: 0, total: 0, items: []}));
+            if (redirectLogin) dispatch(push('/login'));
           } else if (err.response.status === 404) {
             return axios.post(HOST + '/cart/', {}, { headers: getAuthHeaders()})
               .then((resp) => {
                 dispatch(setCart(resp.data));
               })
+          } else {
+            dispatch(setCart({id: null, count: 0, total: 0, items: []}));
           }
         } 
       })
