@@ -12,24 +12,24 @@ const Index = React.lazy(() => import("./pages/index/index"));
 const Cart = React.lazy(() => import("./pages/cart/cart"));
 const Me = React.lazy(() => import("./pages/me/me"));
 const CheckOut = React.lazy(() => import("./pages/checkout/checkout"));
-const LazyIndex = () => (
+const LazyIndex = (props) => (
   <React.Suspense fallback={<div>加载中</div>}>
-    <Index />
+    <Index {...props}/>
   </React.Suspense>
 );
-const LazyCart = () => (
+const LazyCart = (props) => (
   <React.Suspense fallback={<div>加载中</div>}>
-    <Cart />
+    <Cart {...props}/>
   </React.Suspense>
 );
-const LazyMe = () => (
+const LazyMe = (props) => (
   <React.Suspense fallback={<div>加载中</div>}>
-    <Me />
+    <Me {...props}/>
   </React.Suspense>
 );
-const LazyCheckOut = () => (
+const LazyCheckOut = (props) => (
   <React.Suspense fallback={<div>加载中</div>}>
-    <CheckOut />
+    <CheckOut {...props}/>
   </React.Suspense>
 );
 
