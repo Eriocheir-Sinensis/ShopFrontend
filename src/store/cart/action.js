@@ -24,18 +24,22 @@ const createOrLogin = (err) => {
   }
 };
 
-export const getCartDetail = () => {
+export const getCartDetail = (detailed=false) => {
   return dispatch => {
-    return axios.get(HOST + '/cart/', { headers: getAuthHeaders()})
+    return axios.get(`${HOST}/cart/${detailed ? '?detail=true' : ''}`, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {
-        if (err.response.status === 404) {
-          return axios.post(HOST + '/cart/', {}, { headers: getAuthHeaders()})
-            .then((resp) => {
-              dispatch(setCart(resp.data));
-            })
-        }
+        if (err.hasOwnProperty('response')) {
+          if (err.response.status === 403) {
+            dispatch(push('/login'));
+          } else if (err.response.status === 404) {
+            return axios.post(HOST + '/cart/', {}, { headers: getAuthHeaders()})
+              .then((resp) => {
+                dispatch(setCart(resp.data));
+              })
+          }
+        } 
       })
   }
 };
@@ -55,9 +59,9 @@ export const addToCart = (item_id, amount) => {
   }
 };
 
-export const updateCart = (item_id, amount) => {
+export const updateCart = (item_id, amount, detailed=false) => {
   return dispatch => {
-    return axios.put(`${HOST}/cart/${store.getState().cart.id}/${item_id}/`, { amount }, { headers: getAuthHeaders()})
+    return axios.put(`${HOST}/cart/${store.getState().cart.id}/${item_id}/${detailed ? '?detail=true' : ''}`, { amount }, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {
@@ -66,9 +70,9 @@ export const updateCart = (item_id, amount) => {
   }
 };
 
-export const removeFromCart = (item_id) => {
+export const removeFromCart = (item_id, detailed=false) => {
   return dispatch => {
-    return axios.delete(`${HOST}/cart/${store.getState().cart.id}/${item_id}`, { headers: getAuthHeaders()})
+    return axios.delete(`${HOST}/cart/${store.getState().cart.id}/${item_id}/${detailed ? '?detail=true' : ''}`, { headers: getAuthHeaders()})
       .then((resp) => {
         dispatch(setCart(resp.data))
       }).catch((err) => {

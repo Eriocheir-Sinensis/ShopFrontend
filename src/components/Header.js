@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import HeaderBar from "./HeaderBar";
-import ProductDetailHeaderBar from "./ProductDetailHeaderBar";
 import { mergeClasses } from '@material-ui/styles';
+import HeaderBar from "./HeaderBar";
+import CartHeaderBar from "./CartHeaderBar";
+import CheckOutHeaderBar from "./CheckOutHeaderBar";
+import MeHeaderBar from "./MeHeaderBar";
+import AuthPageHeaderBar from "./AuthPageHeaderBar";
+import ProductDetailHeaderBar from "./ProductDetailHeaderBar";
 
 const styles = theme => ({
   header: {
@@ -18,6 +22,18 @@ class Header extends React.Component {
       <header className={mergeClasses.header}>
       {this.props.pathname === '/goods' ?
         (<ProductDetailHeaderBar/>)
+        :
+        this.props.pathname === '/cart' ?
+        (<CartHeaderBar />)
+        :
+        this.props.pathname === '/checkout' ?
+        (<CheckOutHeaderBar />)
+        :
+        this.props.pathname === '/me' ?
+        (<MeHeaderBar />)
+        :
+        (this.props.pathname === '/login' || this.props.pathname === '/signup') ?
+        (<AuthPageHeaderBar />)
         :
         (<HeaderBar/>)
       }

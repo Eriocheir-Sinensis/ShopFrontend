@@ -1,8 +1,9 @@
 const initialState = {
   id: null,
   cart: {},
-  items: {},
-  count: 0
+  items: [],
+  count: 0,
+  total: 0,
 };
 
 const CartReducer = (state = initialState, action) => {
@@ -11,7 +12,8 @@ const CartReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         id: action.id,
         items: action.items,
-        count: action.count
+        count: action.count,
+        total: action.total,
       });
     case "ADD_TO_CART":
       if (state.cart[action.id] === undefined) {

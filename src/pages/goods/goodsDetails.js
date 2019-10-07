@@ -23,6 +23,7 @@ import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { withStyles } from "@material-ui/core/styles";
 import desc1 from "./desc1.png";
 import desc2 from "./desc2.png";
+import desc3 from "./desc3.png";
 import styles from "./styles";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -185,6 +186,12 @@ class Index extends Component {
           <CardMedia
             className={clsx(classes.introductionMedia)}
             image={desc2}
+            />
+        </Card>
+        <Card className={clsx(classes.card, classes.introduction)}>
+          <CardMedia
+            className={clsx(classes.introductionMedia)}
+            image={desc3}
             />
         </Card>
       </React.Fragment>

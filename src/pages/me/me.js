@@ -14,9 +14,10 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Snackbar from "../../components/Snackbar";
+import Header from "../../components/Header";
 import { checkPhone, checkPassword } from "../../common/checker";
 import { showError } from "../../store/errorbar/action";
-import { loginAccount, getAccountInfo } from "../../store/auth/action";
+import { loginAccount, getAccountInfo, logOutAccount } from "../../store/auth/action";
 import styles from "./styles";
 
 class Login extends React.Component {
@@ -67,12 +68,13 @@ class Login extends React.Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        <Header />
         <Snackbar />
         {this.props.user ? (
           <Card className={classes.root}>
             <form autoComplete="off" noValidate>
               <CardHeader
-                title="账户信息"
+                title="修改信息"
               />
               <Divider />
               <CardContent>
@@ -123,6 +125,9 @@ class Login extends React.Component {
                 <Button color="primary" variant="contained" onClick={this.handleSubmit}>
                   保存修改
                 </Button>
+                <Button color="secondary" variant="contained" onClick={() => this.props.logout()}>
+                  登出账号
+                </Button>
               </CardActions>
             </form>
           </Card>
@@ -141,7 +146,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   showError: msg => dispatch(showError(msg)),
-  getAccountInfo: (route = null) => dispatch(getAccountInfo(route))
+  getAccountInfo: (route = null) => dispatch(getAccountInfo(route)),
+  logout: () => dispatch(logOutAccount()),
 });
 
 export default connect(

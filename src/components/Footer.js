@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core";
-import FooterBar from "./FooterBar";
-import ProductDetailFooterBar from "./ProductDetailFooterBar";
 import { mergeClasses } from "@material-ui/styles";
+import FooterBar from "./FooterBar";
+import CartFooterBar from "./CartFooterBar";
+import ProductDetailFooterBar from "./ProductDetailFooterBar";
 
 const styles = theme => ({
   footer: {
-    top: 'auto',
-    bottom: 0,
+    top: "auto",
+    bottom: 0
   }
 });
 
@@ -17,11 +18,14 @@ class Footer extends React.Component {
     const { classes } = this.props;
     return (
       <footer position="fixed" className={mergeClasses.footer}>
-        {this.props.pathname === "/goods" ? (
-          <ProductDetailFooterBar />
-        ) : (
-          <FooterBar />
-        )}
+        {this.props.pathname === "/goods" ? 
+        (<ProductDetailFooterBar />) 
+        :
+        this.props.pathname === "/cart" ?
+        (<CartFooterBar />)
+        : 
+        (<FooterBar />)
+        }
       </footer>
     );
   }

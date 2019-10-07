@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import {withStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Layout from "../../components/Layout";
+import Header from "../../components/Header";
 import Snackbar from "../../components/Snackbar";
 import { checkPhone, checkPassword } from "../../common/checker";
 import {showError} from "../../store/errorbar/action";
@@ -55,6 +56,7 @@ class Login extends React.Component {
     const {classes} = this.props;
     return (
       <React.Fragment>
+        <Header />
         <Snackbar/>
         <Container component="main" maxWidth="xs">
           <div className={classes.paper}>

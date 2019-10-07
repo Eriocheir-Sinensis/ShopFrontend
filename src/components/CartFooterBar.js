@@ -30,6 +30,9 @@ const styles = theme => ({
   grow: {
     flexGrow: 1
   },
+  total: {
+    paddingRight: "1rem",
+  },
   addToCartButton: {
     color: theme.palette.primary.main,
     backgroundColor: theme.palette.secondary.main
@@ -43,8 +46,6 @@ const styles = theme => ({
 class FooterBar extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    console.log(this.props);
   }
 
   handleChange = (event, value) => {
@@ -74,18 +75,18 @@ class FooterBar extends React.Component {
             <WeChatIcon />
           </IconButton>
           <div className={classes.grow} />
+          <Typography
+            color="primary"
+            className={classes.total}
+          >
+            总价：¥{this.props.cart.total}
+          </Typography>
           <ButtonGroup aria-label="outlined primary button group">
             <Button
-              className={classes.addToCartButton}
-              onClick={() => this.props.addCurrentToCart()}
-            >
-              加入购物车
-            </Button>
-            <Button
               className={classes.buyButton}
-              // startIcon={<ShoppingCartIcon />}
+              onClick={() => this.props.push('/checkout')}
             >
-              立即购买
+              确认订单
             </Button>
           </ButtonGroup>
         </Toolbar>
