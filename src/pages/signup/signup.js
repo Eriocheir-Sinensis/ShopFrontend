@@ -1,20 +1,25 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import {connect} from 'react-redux';
+import {Link as ReactLink} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Layout from "../../components/Layout";
+import {
+  Avatar,
+  Button,
+  Box,
+  TextField,
+  Link,
+  Grid,
+  Typography,
+  Container
+} from "@material-ui/core";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {checkPhone, checkPassword} from "../../common/checker";
 import Copyright from "../../components/Copyright";
 import styles from './styles';
-
+import Header from "../../components/Header";
+import Snackbar from "../../components/Snackbar";
+import {showError} from "../../store/errorbar/action";
+import {registerAccount} from "../../store/auth/action";
 
 
 class SignUp extends React.Component {
@@ -39,13 +44,30 @@ class SignUp extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    if (!checkPhone(this.state.phone)) {
+      this.props.showError("请输入正确的手机号");
+      this.setState({phone: ''});
+      return;
+    }
+    if (!checkPassword(this.state.password)) {
+      this.props.showError("密码格式不正确");
+      this.setState({password: '', repeated_password: ''});
+      return;
+    }
+    if (this.state.password !== this.state.repeated_password) {
+      this.props.showError("两次密码不一致");
+      this.setState({password: '', repeated_password: ''});
+      return;
+    }
+    this.props.registerAccount(this.state);
   }
 
   render() {
     const {classes} = this.props;
     return (
-      <Layout>
+      <React.Fragment>
+        <Header/>
+        <Snackbar/>
         <Container component="main" maxWidth="xs">
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -78,6 +100,7 @@ class SignUp extends React.Component {
                     label="电话"
                     name="phone"
                     autoComplete="phone"
+                    error={this.state.phone ? !checkPhone(this.state.phone) : false}
                     onChange={this.handleChange}
                   />
                 </Grid>
@@ -105,13 +128,23 @@ class SignUp extends React.Component {
                     type="password"
                     id="password"
                     autoComplete="password"
+                    error={this.state.password ? !checkPassword(this.state.password) : false}
                     onChange={this.handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                    label="I want to receive inspiration, marketing promotions and updates via email."
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="repeated_password"
+                    label="重复密码"
+                    type="password"
+                    id="repeated_password"
+                    autoComplete="repeated_password"
+                    error={this.state.repeated_password ?
+                      !(this.state.repeated_password === this.state.password) : false}
+                    onChange={this.handleChange}
                   />
                 </Grid>
               </Grid>
@@ -123,12 +156,12 @@ class SignUp extends React.Component {
                 className={classes.submit}
                 onClick={this.handleSubmit}
               >
-                Sign Up
+                注册
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    Already have an account? Sign in
+                  <Link component={ReactLink} to="/login" variant="body2">
+                    已经有帐号？登录
                   </Link>
                 </Grid>
               </Grid>
@@ -138,9 +171,19 @@ class SignUp extends React.Component {
             <Copyright/>
           </Box>
         </Container>
-      </Layout>
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(SignUp);
+const mapStateToProps = (state) => {
+  const {auth} = state;
+  return {user: auth.user, token: auth.token}
+};
+
+const mapDispatchToProps = dispatch => ({
+  showError: (msg) => dispatch(showError(msg)),
+  registerAccount: (data) => dispatch(registerAccount(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignUp));

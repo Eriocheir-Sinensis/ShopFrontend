@@ -15,7 +15,9 @@ const styles = theme => ({
     alignItems: 'center',
   },
   root: {
-    backgroundColor: theme.palette.primary.main,
+    // position: "absolute",
+    // top: theme.spacing(6),
+    backgroundColor: 'darkred',
     borderRadius: '4px',
   },
   icon: {
@@ -40,7 +42,7 @@ class ErrorBar extends React.Component {
         open={this.props.open}
         onClose={this.props.showNothing}
         TransitionComponent={this.props.Transition}
-        autoHideDuration={200000}
+        autoHideDuration={2000}
         ContentProps={{
           'aria-describedby': 'snackbar-message',
         }}

@@ -1,21 +1,26 @@
 import React from "react";
-import {connect} from 'react-redux';
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
+import { connect } from 'react-redux';
+import { push } from "connected-react-router";
+import { Link as ReactLink } from 'react-router-dom';
+import {
+  Avatar,
+  Button,
+  Box,
+  TextField,
+  Link,
+  Grid,
+  Typography,
+  Container
+} from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
 import {withStyles} from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Layout from "../../components/Layout";
 import Header from "../../components/Header";
 import Snackbar from "../../components/Snackbar";
 import { checkPhone, checkPassword } from "../../common/checker";
 import {showError} from "../../store/errorbar/action";
 import {loginAccount, getAccountInfo} from "../../store/auth/action";
 import styles from './styles';
+import Copyright from "../../components/Copyright";
 
 class Login extends React.Component {
   constructor(props) {
@@ -114,13 +119,16 @@ class Login extends React.Component {
                 {/*  </Link>*/}
                 {/*</Grid>*/}
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link component={ReactLink} to="/signup" variant="body2">
                     {"没有帐号？点击注册"}
                   </Link>
                 </Grid>
               </Grid>
             </form>
           </div>
+          <Box mt={5}>
+            <Copyright/>
+          </Box>
         </Container>
       </React.Fragment>
     );

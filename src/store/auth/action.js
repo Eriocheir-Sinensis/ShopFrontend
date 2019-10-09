@@ -26,7 +26,7 @@ export const registerAccount = data => {
         localStorage.setItem("token", resp.data.token);
         dispatch(setToken(resp.data.token));
         dispatch(setUser(resp.data.user));
-        // TODO dispatch to previous page
+        dispatch(push('/'));
       })
       .catch(err => {
         console.log(err.response);
