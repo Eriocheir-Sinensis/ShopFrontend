@@ -31,7 +31,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { getCartDetail, updateCart, removeFromCart } from "../../store/cart/action";
 
-class Index extends Component {
+class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -276,4 +276,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Index));
+)(withStyles(styles)(Cart));

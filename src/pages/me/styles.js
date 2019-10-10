@@ -1,6 +1,11 @@
 const styles = theme => ({
-  root: {
+  container: {
     paddingTop: theme.spacing(8),
+  },
+  orderCard: {
+    marginBottom: theme.spacing(1),
+  },
+  meCard: {
     dispay: 'flex',
     alignItems: 'center',
   },

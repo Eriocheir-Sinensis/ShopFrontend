@@ -83,6 +83,7 @@ class FooterBar extends React.Component {
           </Typography>
           <ButtonGroup aria-label="outlined primary button group">
             <Button
+              disabled={this.props.cart.total <= 0}
               className={classes.buyButton}
               onClick={() => this.props.push('/checkout')}
             >
