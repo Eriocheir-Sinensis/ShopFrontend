@@ -42,7 +42,7 @@ class ErrorBar extends React.Component {
         open={this.props.open}
         onClose={this.props.showNothing}
         TransitionComponent={this.props.Transition}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         ContentProps={{
           'aria-describedby': 'snackbar-message',
         }}

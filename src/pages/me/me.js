@@ -1,4 +1,5 @@
 import React from "react";
+import { push } from "connected-react-router";
 import { connect } from "react-redux";
 import {
   Card,
@@ -10,7 +11,7 @@ import {
   Button,
   TextField,
   Typography,
-  CircularProgress
+  CircularProgress, ListItem, ListItemText, List, Container
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Snackbar from "../../components/Snackbar";
@@ -18,7 +19,9 @@ import Header from "../../components/Header";
 import { checkPhone, checkPassword } from "../../common/checker";
 import { showError } from "../../store/errorbar/action";
 import { loginAccount, getAccountInfo, logOutAccount } from "../../store/auth/action";
+import { getAllOrders } from "../../store/order/action";
 import styles from "./styles";
+import Loading from "../../components/Loading";
 
 class Login extends React.Component {
   constructor(props) {
@@ -34,7 +37,8 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getAccountInfo();
+    if (!this.props.user) this.props.getAccountInfo();
+    if (!this.props.orders) this.props.getAllOrders();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -64,14 +68,57 @@ class Login extends React.Component {
     console.log(this.state);
   }
 
+  renderOrders() {
+    const { classes } = this.props;
+    return (
+      this.props.orders !== null ? (
+        <Card className={classes.orderCard}>
+          <CardHeader
+            title="订单详情"
+          />
+          <Divider />
+          <CardContent>
+          <List disablePadding>
+            {this.props.orders.map(order => (
+              <ListItem className={classes.listItem} key={order.id}>
+                <ListItemText primary={`${order.count}件商品共¥${order.total}`} />
+                {
+                  order.status === '未付款' ? (
+                    <Button variant="contained" color="primary" className={classes.downloadButton}
+                      onClick={() => this.props.goToMoney(order.id)}>
+                      去付款
+                    </Button>
+                  ) : order.status === '完成' ? (
+                    <Typography variant="body2" color="error">
+                      {order.status}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="secondary">
+                      {order.status}
+                    </Typography>
+                  )
+                }
+              </ListItem>
+            ))}
+          </List>
+          </CardContent>
+        </Card>
+      ) : (
+        <Loading/>
+      )
+    )
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <React.Fragment>
         <Header />
         <Snackbar />
+        <Container className={classes.container} maxWidth="xs">
+        {this.renderOrders()}
         {this.props.user ? (
-          <Card className={classes.root}>
+          <Card className={classes.meCard}>
             <form autoComplete="off" noValidate>
               <CardHeader
                 title="修改信息"
@@ -132,22 +179,25 @@ class Login extends React.Component {
             </form>
           </Card>
         ) : (
-          <CircularProgress className={classes.progress} />
+          <Loading />
         )}
+        </Container>
       </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { auth } = state;
-  return { user: auth.user, token: auth.token };
+  const { auth, order } = state;
+  return { user: auth.user, token: auth.token, orders: order.orders };
 };
 
 const mapDispatchToProps = dispatch => ({
   showError: msg => dispatch(showError(msg)),
   getAccountInfo: (route = null) => dispatch(getAccountInfo(route)),
   logout: () => dispatch(logOutAccount()),
+  getAllOrders: () => dispatch(getAllOrders()),
+  goToMoney: (order_id) => dispatch(push(`/money/?id=${order_id}`)),
 });
 
 export default connect(

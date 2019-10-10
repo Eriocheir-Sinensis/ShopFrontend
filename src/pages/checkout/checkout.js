@@ -33,12 +33,10 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import styles from "./styles";
 import Header from "../../components/Header";
-import {
-  getCartDetail,
-  updateCart,
-  removeFromCart
-} from "../../store/cart/action";
+import Snackbar from "../../components/Snackbar";
+import {getCartDetail} from "../../store/cart/action";
 import { getAccountInfo } from "../../store/auth/action";
+import { createOrder } from "../../store/order/action";
 
 class Index extends React.Component {
   constructor(props) {
@@ -71,10 +69,16 @@ class Index extends React.Component {
 
   handleOrderConfirmClose = () => {
     this.setState({ orderConfirmShow: false });
-  }
+  };
+
   handleOrderConfirm = () => {
-    console.log("!!!!!!!");
-  }
+    this.props.createOrder({
+      receiver_name: this.state.name,
+      receiver_phone: this.state.phone,
+      receiver_address: this.state.address,
+      items: this.props.cart.items.map(item => ({crab: item.crab.id, amount: item.amount}))
+    })
+  };
 
   handleChange = (event) => {
     this.setState({
@@ -124,6 +128,7 @@ class Index extends React.Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        <Snackbar />
         <Header />
         <main>
           { this.renderDialog() }
@@ -246,8 +251,7 @@ const mapDispatchToProps = dispatch => ({
   goToCart: () => dispatch(push("/cart")),
   getAccountInfo: () => dispatch(getAccountInfo()),
   getCartDetail: () => dispatch(getCartDetail(true)),
-  updateCart: (item_id, amount) => dispatch(updateCart(item_id, amount, true)),
-  removeFromCart: item_id => dispatch(removeFromCart(item_id, true))
+  createOrder: (data) => dispatch(createOrder(data)),
 });
 
 export default connect(
