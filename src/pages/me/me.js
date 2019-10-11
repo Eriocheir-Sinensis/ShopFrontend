@@ -121,7 +121,7 @@ class Login extends React.Component {
           <Card className={classes.meCard}>
             <form autoComplete="off" noValidate>
               <CardHeader
-                title="修改信息"
+                title="修改帐号信息"
               />
               <Divider />
               <CardContent>
@@ -173,7 +173,7 @@ class Login extends React.Component {
                   保存修改
                 </Button>
                 <Button color="secondary" variant="contained" onClick={() => this.props.logout()}>
-                  登出账号
+                  退出账号
                 </Button>
               </CardActions>
             </form>

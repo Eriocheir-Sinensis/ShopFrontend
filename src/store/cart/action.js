@@ -11,6 +11,13 @@ const setCart = (data) => {
   }
 };
 
+const setBadgeVariant = (variant='standard') => {
+  return {
+    type: 'SET_BADGE_VARIANT',
+    variant
+  }
+};
+
 const createOrLogin = (err) => {
   return dispatch => {
     if (err.response.status === 404) {
@@ -43,33 +50,47 @@ export const getCartDetail = (detailed=false, redirectLogin=false) => {
           } else {
             dispatch(setCart({id: null, count: 0, total: 0, items: []}));
           }
-        } 
+        }
       })
   }
 };
 
 export const addToCart = (item_id, amount) => {
   return dispatch => {
+    dispatch(setBadgeVariant('dot'));
     const data = {
       crab: item_id,
       amount
     };
     return axios.post(`${HOST}/cart/${store.getState().cart.id}/`, data, { headers: getAuthHeaders()})
       .then((resp) => {
-        dispatch(setCart(resp.data))
+        dispatch(setCart(resp.data));
+        setTimeout(() => {
+          dispatch(setBadgeVariant());
+        }, 200)
       }).catch((err) => {
         dispatch(createOrLogin(err));
+        setTimeout(() => {
+          dispatch(setBadgeVariant());
+        }, 200)
       })
   }
 };
 
 export const updateCart = (item_id, amount, detailed=false) => {
   return dispatch => {
+    dispatch(setBadgeVariant('dot'));
     return axios.put(`${HOST}/cart/${store.getState().cart.id}/${item_id}/${detailed ? '?detail=true' : ''}`, { amount }, { headers: getAuthHeaders()})
       .then((resp) => {
-        dispatch(setCart(resp.data))
+        dispatch(setCart(resp.data));
+        setTimeout(() => {
+          dispatch(setBadgeVariant());
+        }, 200)
       }).catch((err) => {
         dispatch(createOrLogin(err));
+        setTimeout(() => {
+          dispatch(setBadgeVariant());
+        }, 200)
       })
   }
 };

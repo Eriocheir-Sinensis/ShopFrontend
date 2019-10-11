@@ -4,6 +4,7 @@ const initialState = {
   items: [],
   count: 0,
   total: 0,
+  badgeVariant: 'standard',
 };
 
 const CartReducer = (state = initialState, action) => {
@@ -37,6 +38,8 @@ const CartReducer = (state = initialState, action) => {
       }
       state.count -= amount;
       return Object.assign({}, state, {});
+    case "SET_BADGE_VARIANT":
+      return Object.assign({}, state, {badgeVariant: action.variant});
     default:
       return state;
   }
