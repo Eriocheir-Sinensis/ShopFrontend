@@ -83,7 +83,7 @@ class FooterBar extends React.Component {
             </Button>
             <Button
               className={classes.buyButton}
-              // startIcon={<ShoppingCartIcon />}
+              onClick={() => this.props.push('/checkout')}
             >
               立即购买
             </Button>
