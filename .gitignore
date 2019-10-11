@@ -62,3 +62,6 @@ typings/
 
 # build files
 build/
+
+# Intellij
+.idea/

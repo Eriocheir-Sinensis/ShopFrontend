@@ -36,9 +36,13 @@ class Cart extends Component {
     super(props);
     this.state = {
       deleteConfirmShow: false,
-      pendingDelete: null
+      pendingDelete: null,
+      editDialogShow: false,
+      pendingEditItem: null,
     };
     this.goToDetail = this.goToDetail.bind(this);
+    this.handleEditDialogOpen = this.handleEditDialogOpen.bind(this);
+    this.handleEditDialogClose = this.handleEditDialogClose.bind(this);
     this.handleDeleteConfirmOpen = this.handleDeleteConfirmOpen.bind(this);
     this.handleDeleteConfirmClose = this.handleDeleteConfirmClose.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
@@ -116,6 +120,48 @@ class Cart extends Component {
         </Card>
       </Grid>
     );
+  }
+
+  handleEditDialogOpen = (id, amount) => {
+    this.setState({
+      editDialogShow: true,
+      pendingEditItem: {id: id, amount: amount}
+    });
+  };
+  handleEditDialogClose = (confirm=false) => {
+    if (confirm) this.props.updateCart(this.state.pendingEditItem.id, this.state.pendingEditItem.amount);
+    this.setState({
+      editDialogShow: false,
+      pendingEditItem: null
+    })
+  };
+
+  renderEditDialog() {
+    return (
+      <Dialog open={this.state.editDialogShow} onClose={this.handleEditDialogClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">请输入要修改的数量</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="amount"
+            label="修改数量"
+            type="number"
+            value={this.state.pendingEditItem ? this.state.pendingEditItem.amount: 0}
+            onChange={(e) => this.setState({pendingEditItem: {...this.state.pendingEditItem, amount: e.target.value}})}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => this.handleEditDialogClose()} color="primary">
+            取消
+          </Button>
+          <Button onClick={() => this.handleEditDialogClose(true)} color="primary">
+            确认
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
   }
 
   renderDetailedItem(item, index) {
@@ -202,18 +248,13 @@ class Cart extends Component {
                       component="span"
                       className={classes.gridDetailsNumBox}
                     >
-                      <TextField
-                        type="number"
-                        id="amount"
-                        name="amount"
-                        rowsMax={1}
-                        value={this.props.items[index].amount}
-                        onChange={e => {
-                          this.props.updateCart(crab.id, e.target.value);
-                        }}
-                        inputProps={{ className: classes.numInput }}
-                        className={classes.gridDetailsNumTextField}
-                      />
+                      <IconButton
+                        size="small"
+                        className={classes.gridDetailsIconButton}
+                        onClick={() => this.handleEditDialogOpen(crab.id, this.props.items[index].amount)}
+                        >
+                        {this.props.items[index].amount}
+                      </IconButton>
                     </Box>
                     <Box width={1 / 3} component="span">
                       <IconButton
@@ -247,6 +288,7 @@ class Cart extends Component {
         <main>
           <Container className={classes.cardGrid} maxWidth="xs">
             {this.renderDialog()}
+            {this.renderEditDialog()}
             <Grid container spacing={2} className={classes.gridContainer}>
               {this.props.items.map((item, index) => {
                 return Number.isInteger(item.crab)

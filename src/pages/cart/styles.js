@@ -59,12 +59,12 @@ const styles = theme => ({
   iconButton: {
     fontSize: "1.5rem"
   },
-  gridDetailsNumBox: {},
-  gridDetailsNumTextField: {},
-  numInput: {
+  gridDetailsNumBox: {
     textAlign: "center",
-    fontSize: "1rem"
-  }
+  },
+  gridDetailsIconButton: {
+    marginTop: "0.1rem",
+  },
 });
 
 export default styles;
