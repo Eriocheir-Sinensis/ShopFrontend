@@ -18,7 +18,7 @@ class BadgedShoppingCartIcon extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-        <Badge badgeContent={this.props.cart.count} color="secondary">
+        <Badge variant={this.props.cart.badgeVariant} badgeContent={this.props.cart.count} color="secondary">
           <ShoppingCartIcon onClick={() => this.props.goToCart()}/>
         </Badge>
     );
